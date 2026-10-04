@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Acceso restringido</title>
+    <title>Tu regalo</title>
 
     <style>
         * {
@@ -25,7 +25,7 @@
 
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 500px;
             text-align: center;
             background: #1f2937;
             padding: 40px 30px;
@@ -41,6 +41,11 @@
         h1 {
             margin: 0 0 15px;
             font-size: 28px;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 24px;
         }
 
         p {
@@ -84,9 +89,9 @@
         }
 
         .message {
-            margin-top: 18px;
-            min-height: 24px;
+            margin-top: 20px;
             font-weight: bold;
+            line-height: 1.5;
         }
 
         .error {
@@ -97,7 +102,7 @@
             color: #4ade80;
         }
 
-        #gift {
+        .result {
             display: none;
             margin-top: 25px;
             padding: 25px;
@@ -105,8 +110,17 @@
             background: #111827;
         }
 
-        #gift .gift-icon {
-            font-size: 70px;
+        .result img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .result-icon {
+            font-size: 65px;
+            margin-bottom: 10px;
         }
 
         #blocked {
@@ -119,7 +133,10 @@
 
 <div class="container">
 
-    <!-- Pantalla cuando la URL secreta es incorrecta -->
+    <!-- ==========================================
+         PÁGINA BLOQUEADA
+         ========================================== -->
+
     <div id="blocked">
 
         <div class="icon">🚫</div>
@@ -137,21 +154,26 @@
     </div>
 
 
-    <!-- Pantalla principal -->
+    <!-- ==========================================
+         PÁGINA PRINCIPAL
+         ========================================== -->
+
     <div id="main">
 
         <div class="icon">🔐</div>
 
-        <h1>Acceso restringido</h1>
-
-        <p>
-            Has encontrado la puerta.
-        </p>
+        <h1>Has encontrado la puerta</h1>
 
         <p>
             Pero todavía no puedes acceder.
-            Necesitas introducir el código que has descubierto durante la prueba.
         </p>
+
+        <p>
+            Introduce el código que has conseguido descubrir.
+        </p>
+
+
+        <!-- FORMULARIO DEL CÓDIGO -->
 
         <form id="codeForm">
 
@@ -169,23 +191,60 @@
 
         </form>
 
+
+        <!-- MENSAJE -->
+
         <div id="message" class="message"></div>
 
 
-        <!-- Regalo -->
-        <div id="gift">
+        <!-- ==========================================
+             RESULTADO CORRECTO
+             ========================================== -->
 
-            <div class="gift-icon">🎁</div>
+        <div id="successResult" class="result">
 
-            <h2>¡Código correcto!</h2>
+            <div class="result-icon">🎉</div>
+
+            <h2>¡CORRECTO!</h2>
 
             <p>
-                Has conseguido desbloquear la página.
+                ¡Lo has conseguido!
             </p>
 
             <p>
-                🎉 ¡Has superado la prueba!
+                Has desbloqueado tu regalo. ❤️
             </p>
+
+            <img
+                src="regalo.jpg"
+                alt="Tu regalo"
+            >
+
+        </div>
+
+
+        <!-- ==========================================
+             RESULTADO INCORRECTO
+             ========================================== -->
+
+        <div id="errorResult" class="result">
+
+            <div class="result-icon">😂</div>
+
+            <h2>¡NOOO!</h2>
+
+            <p>
+                Ese no era el código...
+            </p>
+
+            <p>
+                Pero al menos tienes un pequeño premio de consolación. 😜
+            </p>
+
+            <img
+                src="error.jpg"
+                alt="Premio de consolación"
+            >
 
         </div>
 
@@ -196,41 +255,42 @@
 
 <script>
 
-    // ==========================================================
-    // CONFIGURACIÓN
-    // ==========================================================
+    /* ==========================================
+       CONFIGURACIÓN
+       ========================================== */
 
-    // Clave secreta que irá dentro del QR
+    // Clave secreta de la URL
     const SECRET_KEY = "F7K29M";
 
-    // Código que tendrá que descubrir la persona
-    const CORRECT_CODE = "4729";
+    // Código que debe introducir
+    const CORRECT_CODE = "HERA";
 
 
-    // ==========================================================
-    // COMPROBAR LA CLAVE SECRETA DE LA URL
-    // ==========================================================
+    /* ==========================================
+       COMPROBAR LA URL
+       ========================================== */
 
     const params = new URLSearchParams(window.location.search);
 
     const key = params.get("k");
 
-
     const main = document.getElementById("main");
+
     const blocked = document.getElementById("blocked");
 
 
     if (key !== SECRET_KEY) {
 
         main.style.display = "none";
+
         blocked.style.display = "block";
 
     }
 
 
-    // ==========================================================
-    // COMPROBAR EL CÓDIGO
-    // ==========================================================
+    /* ==========================================
+       ELEMENTOS DEL FORMULARIO
+       ========================================== */
 
     const form = document.getElementById("codeForm");
 
@@ -238,29 +298,61 @@
 
     const message = document.getElementById("message");
 
-    const gift = document.getElementById("gift");
+    const successResult = document.getElementById("successResult");
 
+    const errorResult = document.getElementById("errorResult");
+
+
+    /* ==========================================
+       COMPROBAR EL CÓDIGO
+       ========================================== */
 
     form.addEventListener("submit", function(event) {
 
         event.preventDefault();
 
+
+        // Convertimos a mayúsculas para que
+        // "hera", "Hera" o "HERA" funcionen igual.
+
         const enteredCode = input.value.trim().toUpperCase();
 
+
+        /* ======================================
+           CÓDIGO CORRECTO
+           ====================================== */
 
         if (enteredCode === CORRECT_CODE) {
 
             message.textContent = "🔓 Acceso concedido.";
+
             message.className = "message success";
 
-            gift.style.display = "block";
+            successResult.style.display = "block";
+
+            errorResult.style.display = "none";
 
             input.disabled = true;
 
-        } else {
+            form.querySelector("button").disabled = true;
 
-            message.textContent = "❌ Código incorrecto. Inténtalo de nuevo.";
+        }
+
+
+        /* ======================================
+           CÓDIGO INCORRECTO
+           ====================================== */
+
+        else {
+
+            message.textContent =
+                "❌ Código incorrecto. Inténtalo de nuevo.";
+
             message.className = "message error";
+
+            errorResult.style.display = "block";
+
+            successResult.style.display = "none";
 
             input.select();
 
