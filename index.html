@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Acceso restringido</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #111827;
+            color: #f9fafb;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            background: #1f2937;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin: 0 0 15px;
+            font-size: 28px;
+        }
+
+        p {
+            color: #d1d5db;
+            line-height: 1.6;
+        }
+
+        input {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px solid #4b5563;
+            border-radius: 10px;
+            background: #111827;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: 5px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #60a5fa;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            margin-top: 18px;
+            min-height: 24px;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #f87171;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        #gift {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            border-radius: 15px;
+            background: #111827;
+        }
+
+        #gift .gift-icon {
+            font-size: 70px;
+        }
+
+        #blocked {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Pantalla cuando la URL secreta es incorrecta -->
+    <div id="blocked">
+
+        <div class="icon">🚫</div>
+
+        <h1>Acceso restringido</h1>
+
+        <p>
+            Esta página no está disponible.
+        </p>
+
+        <p>
+            Parece que has llegado hasta aquí por un camino equivocado...
+        </p>
+
+    </div>
+
+
+    <!-- Pantalla principal -->
+    <div id="main">
+
+        <div class="icon">🔐</div>
+
+        <h1>Acceso restringido</h1>
+
+        <p>
+            Has encontrado la puerta.
+        </p>
+
+        <p>
+            Pero todavía no puedes acceder.
+            Necesitas introducir el código que has descubierto durante la prueba.
+        </p>
+
+        <form id="codeForm">
+
+            <input
+                type="text"
+                id="code"
+                placeholder="CÓDIGO"
+                autocomplete="off"
+                maxlength="20"
+            >
+
+            <button type="submit">
+                DESBLOQUEAR
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+
+        <!-- Regalo -->
+        <div id="gift">
+
+            <div class="gift-icon">🎁</div>
+
+            <h2>¡Código correcto!</h2>
+
+            <p>
+                Has conseguido desbloquear la página.
+            </p>
+
+            <p>
+                🎉 ¡Has superado la prueba!
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // ==========================================================
+    // CONFIGURACIÓN
+    // ==========================================================
+
+    // Clave secreta que irá dentro del QR
+    const SECRET_KEY = "F7K29M";
+
+    // Código que tendrá que descubrir la persona
+    const CORRECT_CODE = "4729";
+
+
+    // ==========================================================
+    // COMPROBAR LA CLAVE SECRETA DE LA URL
+    // ==========================================================
+
+    const params = new URLSearchParams(window.location.search);
+
+    const key = params.get("k");
+
+
+    const main = document.getElementById("main");
+    const blocked = document.getElementById("blocked");
+
+
+    if (key !== SECRET_KEY) {
+
+        main.style.display = "none";
+        blocked.style.display = "block";
+
+    }
+
+
+    // ==========================================================
+    // COMPROBAR EL CÓDIGO
+    // ==========================================================
+
+    const form = document.getElementById("codeForm");
+
+    const input = document.getElementById("code");
+
+    const message = document.getElementById("message");
+
+    const gift = document.getElementById("gift");
+
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const enteredCode = input.value.trim().toUpperCase();
+
+
+        if (enteredCode === CORRECT_CODE) {
+
+            message.textContent = "🔓 Acceso concedido.";
+            message.className = "message success";
+
+            gift.style.display = "block";
+
+            input.disabled = true;
+
+        } else {
+
+            message.textContent = "❌ Código incorrecto. Inténtalo de nuevo.";
+            message.className = "message error";
+
+            input.select();
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
