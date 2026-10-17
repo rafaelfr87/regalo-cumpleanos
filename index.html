@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Tu regalo</title>
+    <title>Mi Helen ❤️</title>
 
     <style>
         * {
@@ -88,6 +88,11 @@
             background: #1d4ed8;
         }
 
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .message {
             margin-top: 20px;
             font-weight: bold;
@@ -111,11 +116,12 @@
         }
 
         .result img {
+            display: block;
             width: 100%;
             max-width: 420px;
             height: auto;
             border-radius: 12px;
-            margin-top: 15px;
+            margin: 15px auto 0;
         }
 
         .result-icon {
@@ -126,6 +132,28 @@
         #blocked {
             display: none;
         }
+
+        /* Pantalla de disponibilidad */
+        #comingSoon {
+            display: none;
+        }
+
+        /* Juego completo, oculto inicialmente */
+        #game {
+            display: none;
+        }
+
+        .heart {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .date {
+            margin-top: 25px;
+            font-size: 19px;
+            font-weight: bold;
+            color: #f9a8d4;
+        }
     </style>
 </head>
 
@@ -133,9 +161,7 @@
 
 <div class="container">
 
-    <!-- ==========================================
-         PÁGINA BLOQUEADA
-         ========================================== -->
+    <!-- PÁGINA PARA URL NO VÁLIDA -->
 
     <div id="blocked">
 
@@ -143,9 +169,7 @@
 
         <h1>Acceso restringido</h1>
 
-        <p>
-            Esta página no está disponible.
-        </p>
+        <p>Esta página no está disponible.</p>
 
         <p>
             Parece que has llegado hasta aquí por un camino equivocado...
@@ -154,96 +178,124 @@
     </div>
 
 
-    <!-- ==========================================
-         PÁGINA PRINCIPAL
-         ========================================== -->
+    <!-- PÁGINA PRINCIPAL -->
 
     <div id="main">
 
-        <div class="icon">🔐</div>
+        <!-- PANTALLA VISIBLE POR AHORA -->
 
-        <h1>Mi Helen ❤️</h1>
-        
-        <p>
-            ¿Serás capaz de descubrir el código secreto?
-        </p>
-        
-        <p>
-            Estás a un paso de descubrir tu sorpresa...
-        </p>
+        <div id="comingSoon">
 
-        <!-- FORMULARIO DEL CÓDIGO -->
+            <div class="heart">❤️</div>
 
-        <form id="codeForm">
-
-            <input
-                type="text"
-                id="code"
-                placeholder="CÓDIGO"
-                autocomplete="off"
-                maxlength="20"
-            >
-
-            <button type="submit">
-                DESBLOQUEAR
-            </button>
-
-        </form>
-
-
-        <!-- MENSAJE -->
-
-        <div id="message" class="message"></div>
-
-
-        <!-- ==========================================
-             RESULTADO CORRECTO
-             ========================================== -->
-
-        <div id="successResult" class="result">
-
-            <div class="result-icon">🎉</div>
-
-            <h2>¡CORRECTO!</h2>
+            <h1>Mi Helen</h1>
 
             <p>
-                ¡Lo has conseguido!
+                Parece que todavía tendrás que esperar un poquito...
             </p>
 
-            <p>
-                Has desbloqueado tu regalo. ❤️
+            <p class="date">
+                Disponible a partir del 19/10/2026
             </p>
-
-            <img
-                src="regalo.jpg"
-                alt="Tu regalo"
-            >
 
         </div>
 
 
-        <!-- ==========================================
-             RESULTADO INCORRECTO
-             ========================================== -->
+        <!-- JUEGO COMPLETO: OCULTO POR AHORA -->
 
-        <div id="errorResult" class="result">
+        <div id="game">
 
-            <div class="result-icon">😂</div>
+            <div class="icon">🔐</div>
 
-            <h2>¡NOOO!</h2>
+            <h1>Mi Helen ❤️</h1>
 
             <p>
-                Ese no era el código...
+                ¿Serás capaz de descubrir el código secreto?
             </p>
 
             <p>
-                Pero al menos tienes un pequeño premio de consolación. 😜
+                Si has llegado hasta aquí, estás a un paso
+                de descubrir tu sorpresa...
             </p>
 
-            <img
-                src="error.jpg"
-                alt="Premio de consolación"
-            >
+            <p>
+                Introduce el código que has conseguido descifrar.
+            </p>
+
+
+            <!-- FORMULARIO -->
+
+            <form id="codeForm">
+
+                <input
+                    type="text"
+                    id="code"
+                    placeholder="CÓDIGO"
+                    autocomplete="off"
+                    maxlength="20"
+                    aria-label="Introduce el código secreto"
+                    required
+                >
+
+                <button type="submit" id="unlockButton">
+                    DESBLOQUEAR
+                </button>
+
+            </form>
+
+
+            <!-- MENSAJE DE RESPUESTA -->
+
+            <div
+                id="message"
+                class="message"
+                aria-live="polite"
+            ></div>
+
+
+            <!-- SI ACIERTA -->
+
+            <div id="successResult" class="result">
+
+                <div class="result-icon">🎉</div>
+
+                <h2>¡CORRECTO!</h2>
+
+                <p>¡Lo has conseguido!</p>
+
+                <p>
+                    Has desbloqueado tu regalo. ❤️
+                </p>
+
+                <img
+                    src="regalo.jpg"
+                    alt="Tu regalo"
+                >
+
+            </div>
+
+
+            <!-- SI FALLA -->
+
+            <div id="errorResult" class="result">
+
+                <div class="result-icon">😂</div>
+
+                <h2>¡NOOO!</h2>
+
+                <p>Ese no era el código...</p>
+
+                <p>
+                    Pero al menos tienes un pequeño premio
+                    de consolación. 😜
+                </p>
+
+                <img
+                    src="error.jpg"
+                    alt="Premio de consolación"
+                >
+
+            </div>
 
         </div>
 
@@ -253,96 +305,81 @@
 
 
 <script>
-
     /* ==========================================
        CONFIGURACIÓN
        ========================================== */
 
-    // Clave secreta de la URL
     const SECRET_KEY = "F7K29M";
-
-    // Código que debe introducir
     const CORRECT_CODE = "LHNE";
+
+    /*
+       false = mostrar la pantalla de disponibilidad.
+       true  = mostrar directamente el juego.
+
+       Cuando quieras activar el juego, cambia false por true.
+    */
+    const GAME_ENABLED = false;
 
 
     /* ==========================================
-       COMPROBAR LA URL
+       COMPROBAR LA URL SECRETA
        ========================================== */
 
     const params = new URLSearchParams(window.location.search);
-
     const key = params.get("k");
 
     const main = document.getElementById("main");
-
     const blocked = document.getElementById("blocked");
-
+    const comingSoon = document.getElementById("comingSoon");
+    const game = document.getElementById("game");
 
     if (key !== SECRET_KEY) {
-
         main.style.display = "none";
-
         blocked.style.display = "block";
-
+    } else {
+        if (GAME_ENABLED) {
+            comingSoon.style.display = "none";
+            game.style.display = "block";
+        } else {
+            comingSoon.style.display = "block";
+            game.style.display = "none";
+        }
     }
 
 
     /* ==========================================
-       ELEMENTOS DEL FORMULARIO
+       ELEMENTOS DEL JUEGO
        ========================================== */
 
     const form = document.getElementById("codeForm");
-
     const input = document.getElementById("code");
-
     const message = document.getElementById("message");
-
     const successResult = document.getElementById("successResult");
-
     const errorResult = document.getElementById("errorResult");
+    const unlockButton = document.getElementById("unlockButton");
 
 
     /* ==========================================
-       COMPROBAR EL CÓDIGO
+       COMPROBAR EL CÓDIGO INTRODUCIDO
        ========================================== */
 
     form.addEventListener("submit", function(event) {
-
         event.preventDefault();
 
-
-        // Convertimos a mayúsculas para que
-        // "hera", "Hera" o "HERA" funcionen igual.
-
         const enteredCode = input.value.trim().toUpperCase();
-
-
-        /* ======================================
-           CÓDIGO CORRECTO
-           ====================================== */
 
         if (enteredCode === CORRECT_CODE) {
 
             message.textContent = "🔓 Acceso concedido.";
-
             message.className = "message success";
 
             successResult.style.display = "block";
-
             errorResult.style.display = "none";
 
             input.disabled = true;
+            unlockButton.disabled = true;
 
-            form.querySelector("button").disabled = true;
-
-        }
-
-
-        /* ======================================
-           CÓDIGO INCORRECTO
-           ====================================== */
-
-        else {
+        } else {
 
             message.textContent =
                 "❌ Código incorrecto. Inténtalo de nuevo.";
@@ -350,15 +387,12 @@
             message.className = "message error";
 
             errorResult.style.display = "block";
-
             successResult.style.display = "none";
 
             input.select();
 
         }
-
     });
-
 </script>
 
 </body>
