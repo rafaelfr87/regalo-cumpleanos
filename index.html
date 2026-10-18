@@ -1,399 +1,733 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff5f7">
+  <title>Mi Helen ❤️</title>
 
-    <title>Mi Helen ❤️</title>
+  <style>
+    :root {
+      --pink: #e75480;
+      --pink-dark: #c83e69;
+      --background: #fff5f7;
+      --text: #40343a;
+      --muted: #796a72;
+      --white: #ffffff;
+    }
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #111827;
-            color: #f9fafb;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #ffe0e9 0, transparent 38%),
+        radial-gradient(circle at bottom right, #f9dce8 0, transparent 38%),
+        var(--background);
+    }
 
-        .container {
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            background: #1f2937;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
-        }
+    .card {
+      width: 100%;
+      max-width: 620px;
+      padding: 38px 28px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid #f6dce5;
+      border-radius: 24px;
+      box-shadow: 0 14px 45px rgba(154, 73, 103, 0.12);
+      text-align: center;
+      animation: appear 0.6s ease both;
+    }
 
-        .icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
+    .heart {
+      font-size: 52px;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      animation: heartbeat 1.6s ease-in-out infinite;
+    }
 
-        h1 {
-            margin: 0 0 15px;
-            font-size: 28px;
-        }
+    .detective-icon {
+      font-size: 54px;
+      margin-bottom: 12px;
+    }
 
-        h2 {
-            margin-top: 0;
-            font-size: 24px;
-        }
+    h1 {
+      margin: 0 0 18px;
+      color: var(--pink-dark);
+      font-size: clamp(29px, 7vw, 40px);
+      line-height: 1.2;
+    }
 
-        p {
-            color: #d1d5db;
-            line-height: 1.6;
-        }
+    h2 {
+      color: var(--pink-dark);
+      font-size: clamp(23px, 5vw, 29px);
+      line-height: 1.3;
+      margin: 16px 0;
+    }
 
-        input {
-            width: 100%;
-            margin-top: 15px;
-            padding: 15px;
-            border: 1px solid #4b5563;
-            border-radius: 10px;
-            background: #111827;
-            color: white;
-            font-size: 20px;
-            text-align: center;
-            letter-spacing: 5px;
-            outline: none;
-        }
+    p {
+      font-size: 17px;
+      line-height: 1.7;
+      margin: 13px 0;
+    }
 
-        input:focus {
-            border-color: #60a5fa;
-        }
+    .hidden {
+      display: none !important;
+    }
 
-        button {
-            width: 100%;
-            margin-top: 15px;
-            padding: 15px;
-            border: none;
-            border-radius: 10px;
-            background: #2563eb;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .date {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #fff0f4;
+      color: var(--pink-dark);
+      font-weight: 700;
+      font-size: 15px;
+    }
 
-        button:hover {
-            background: #1d4ed8;
-        }
+    .intro {
+      margin-top: 24px;
+      margin-bottom: 22px;
+    }
 
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+    .muted {
+      color: var(--muted);
+    }
 
-        .message {
-            margin-top: 20px;
-            font-weight: bold;
-            line-height: 1.5;
-        }
+    .code-input {
+      width: 100%;
+      padding: 15px 12px;
+      margin: 18px 0 14px;
+      border: 2px solid #f0ccd9;
+      border-radius: 12px;
+      outline: none;
+      background: #fffafd;
+      color: var(--text);
+      font: inherit;
+      font-size: 24px;
+      font-weight: 750;
+      text-align: center;
+      letter-spacing: 9px;
+      text-transform: uppercase;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
 
-        .error {
-            color: #f87171;
-        }
+    .code-input:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(231, 84, 128, 0.12);
+    }
 
-        .success {
-            color: #4ade80;
-        }
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 15px 20px;
+      background: var(--pink);
+      color: white;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 750;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
 
-        .result {
-            display: none;
-            margin-top: 25px;
-            padding: 25px;
-            border-radius: 15px;
-            background: #111827;
-        }
+    button:hover {
+      background: var(--pink-dark);
+      transform: translateY(-1px);
+    }
 
-        .result img {
-            display: block;
-            width: 100%;
-            max-width: 420px;
-            height: auto;
-            border-radius: 12px;
-            margin: 15px auto 0;
-        }
+    button:focus-visible {
+      outline: 3px solid #a72c56;
+      outline-offset: 3px;
+    }
 
-        .result-icon {
-            font-size: 65px;
-            margin-bottom: 10px;
-        }
+    .feedback {
+      min-height: 24px;
+      margin: 12px 0;
+      font-weight: 650;
+    }
 
-        #blocked {
-            display: none;
-        }
+    .clue-box {
+      margin: 24px 0 18px;
+      padding: 20px 16px;
+      background: #fff2f6;
+      border: 1px solid #f7dbe5;
+      border-radius: 16px;
+    }
 
-        /* Pantalla de disponibilidad */
-        #comingSoon {
-            display: none;
-        }
+    .clue-title {
+      color: var(--pink-dark);
+      font-size: 14px;
+      font-weight: 750;
+      letter-spacing: 1.5px;
+      margin-bottom: 14px;
+    }
 
-        /* Juego completo, oculto inicialmente */
-        #game {
-            display: none;
-        }
+    .letters {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 14px 0;
+    }
 
-        .heart {
-            font-size: 70px;
-            margin-bottom: 20px;
-        }
+    .letter {
+      width: 48px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 1px solid #f0cbd9;
+      border-radius: 10px;
+      color: var(--pink-dark);
+      font-size: 25px;
+      font-weight: 750;
+    }
 
-        .date {
-            margin-top: 25px;
-            font-size: 19px;
-            font-weight: bold;
-            color: #f9a8d4;
-        }
-    </style>
+    .dare {
+      margin-top: 16px;
+      color: var(--pink-dark);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+    }
+
+    .result-image {
+      display: block;
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      margin: 22px auto;
+      border-radius: 16px;
+      background: #fff5f7;
+    }
+
+    .success-panel {
+      padding: 22px 18px;
+      margin-top: 22px;
+      background: #fff4f7;
+      border: 1px solid #f4d6e0;
+      border-radius: 18px;
+    }
+
+    .surprise-panel {
+      padding: 22px 18px;
+      margin-top: 22px;
+      background: #fff7e9;
+      border: 1px solid #f2e2c5;
+      border-radius: 18px;
+    }
+
+    .surprise-button {
+      margin-top: 18px;
+      background: #76506a;
+      letter-spacing: 0.3px;
+    }
+
+    .surprise-button:hover {
+      background: #5d3b53;
+    }
+
+    .birthday-text {
+      padding: 20px 16px;
+      margin: 22px 0;
+      background: #fff2f6;
+      border-radius: 16px;
+    }
+
+    .music-button {
+      margin-top: 8px;
+      background: #76506a;
+      letter-spacing: 0.3px;
+    }
+
+    .music-button:hover {
+      background: #5d3b53;
+    }
+
+    .music-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .footer {
+      margin-top: 28px;
+      color: #a08c96;
+      font-size: 12px;
+    }
+
+    .restricted {
+      color: var(--pink-dark);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 30px 20px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .code-input {
+        letter-spacing: 6px;
+      }
+
+      .letters {
+        gap: 7px;
+      }
+
+      .letter {
+        width: 43px;
+        height: 48px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <main class="card">
 
-<div class="container">
+    <!-- =====================================
+         1. ACCESO RESTRINGIDO
+         ===================================== -->
 
-    <!-- PÁGINA PARA URL NO VÁLIDA -->
+    <section id="restricted" class="hidden">
+      <div class="heart">🔒</div>
+      <h1 class="restricted">Acceso restringido</h1>
+      <p>Esta página no está disponible desde aquí.</p>
+    </section>
 
-    <div id="blocked">
 
-        <div class="icon">🚫</div>
+    <!-- =====================================
+         2. PANTALLA DE ESPERA
+         ===================================== -->
 
-        <h1>Acceso restringido</h1>
+    <section id="comingSoon" class="hidden">
+      <div class="heart">❤️</div>
+      <h1>Mi Helen</h1>
 
-        <p>Esta página no está disponible.</p>
+      <p>
+        Parece que todavía tendrás que esperar un poquito...
+      </p>
+
+      <div class="date">
+        Disponible a partir del 19/10/2026
+      </div>
+    </section>
+
+
+    <!-- =====================================
+         3. JUEGO DEL CÓDIGO SECRETO
+         ===================================== -->
+
+    <section id="game" class="hidden">
+
+      <div class="detective-icon">🕵️‍♀️</div>
+
+      <h1>¡Alto ahí, Helen! 🕵️‍♀️</h1>
+
+      <p>¿Creías que todo terminaba con el libro y las tarjetitas?</p>
+
+      <p>
+        ¡Pues todavía queda una última misión! 😏
+      </p>
+
+      <p>
+        Si has seguido bien las pistas y has conseguido
+        descifrar los cuatro símbolos, seguro que ya tienes
+        la clave.
+      </p>
+
+      <p><strong>Pero vamos a comprobarlo… 👀</strong></p>
+
+      <div class="clue-box">
+        <h2>¿Cuál es el código secreto?</h2>
 
         <p>
-            Parece que has llegado hasta aquí por un camino equivocado...
+          Cuatro letras. Un intento de demostrar tus dotes
+          detectivescas. Y una sorpresa esperándote al otro lado. ❤️
         </p>
 
-    </div>
-
-
-    <!-- PÁGINA PRINCIPAL -->
-
-    <div id="main">
-
-        <!-- PANTALLA VISIBLE POR AHORA -->
-
-        <div id="comingSoon">
-
-            <div class="heart">❤️</div>
-
-            <h1>Mi Helen</h1>
-
-            <p>
-                Parece que todavía tendrás que esperar un poquito...
-            </p>
-
-            <p class="date">
-                Disponible a partir del 19/10/2026
-            </p>
-
+        <div class="letters" aria-hidden="true">
+          <div class="letter">?</div>
+          <div class="letter">?</div>
+          <div class="letter">?</div>
+          <div class="letter">?</div>
         </div>
 
+        <div class="clue-title">INTRODUCE EL CÓDIGO</div>
 
-        <!-- JUEGO COMPLETO: OCULTO POR AHORA -->
+        <form id="codeForm">
+          <label for="codeInput" class="hidden">
+            Código secreto
+          </label>
 
-        <div id="game">
+          <input
+            id="codeInput"
+            class="code-input"
+            type="text"
+            placeholder="••••"
+            maxlength="20"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            required
+          >
 
-            <div class="icon">🔐</div>
+          <button type="submit">¿TE ATREVES? 😜</button>
+        </form>
+      </div>
 
-            <h1>Mi Helen ❤️</h1>
-
-            <p>
-                ¿Serás capaz de descubrir el código secreto?
-            </p>
-
-            <p>
-                Si has llegado hasta aquí, estás a un paso
-                de descubrir tu sorpresa...
-            </p>
-
-            <p>
-                Introduce el código que has conseguido descifrar.
-            </p>
-
-
-            <!-- FORMULARIO -->
-
-            <form id="codeForm">
-
-                <input
-                    type="text"
-                    id="code"
-                    placeholder="CÓDIGO"
-                    autocomplete="off"
-                    maxlength="20"
-                    aria-label="Introduce el código secreto"
-                    required
-                >
-
-                <button type="submit" id="unlockButton">
-                    DESBLOQUEAR
-                </button>
-
-            </form>
+      <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
 
 
-            <!-- MENSAJE DE RESPUESTA -->
+      <!-- =====================================
+           4. RESULTADO INCORRECTO
+           ===================================== -->
 
-            <div
-                id="message"
-                class="message"
-                aria-live="polite"
-            ></div>
+      <section id="wrongResult" class="hidden">
+        <h2>😂 ¡UY, UY, UY!</h2>
 
+        <p>
+          Parece que algún símbolo se te ha resistido,
+          detective...
+        </p>
 
-            <!-- SI ACIERTA -->
+        <p>
+          ¡Vuelve a revisar las pistas y prueba otra vez! 🕵️‍♀️
+        </p>
 
-            <div id="successResult" class="result">
+        <p>
+          Aunque no te preocupes, hasta los mejores detectives
+          necesitan una segunda oportunidad. 😜
+        </p>
 
-                <div class="result-icon">🎉</div>
-
-                <h2>¡CORRECTO!</h2>
-
-                <p>¡Lo has conseguido!</p>
-
-                <p>
-                    Has desbloqueado tu regalo. ❤️
-                </p>
-
-                <img
-                    src="regalo.jpg"
-                    alt="Tu regalo"
-                >
-
-            </div>
+        <img
+          class="result-image"
+          src="error.jpg"
+          alt="Tu pequeño premio de consolación"
+        >
+      </section>
 
 
-            <!-- SI FALLA -->
+      <!-- =====================================
+           5. CÓDIGO CORRECTO: SEGUNDA FASE
+           ===================================== -->
 
-            <div id="errorResult" class="result">
+      <section id="successResult" class="hidden">
 
-                <div class="result-icon">😂</div>
+        <div class="success-panel">
+          <div class="heart">🔓</div>
 
-                <h2>¡NOOO!</h2>
+          <h2>¡CÓDIGO CORRECTO!</h2>
 
-                <p>Ese no era el código...</p>
+          <p><strong>¡BRAVO, DETECTIVE! 🕵️‍♀️</strong></p>
 
-                <p>
-                    Pero al menos tienes un pequeño premio
-                    de consolación. 😜
-                </p>
+          <p>
+            Has descifrado el código y superado la última prueba.
+          </p>
 
-                <img
-                    src="error.jpg"
-                    alt="Premio de consolación"
-                >
+          <p>
+            Pero, entre nosotros, esta vez el verdadero misterio
+            era cómo sorprenderte... ❤️
+          </p>
 
-            </div>
+          <p>
+            ¿Pensabas que esto terminaba aquí?
+          </p>
 
+          <p><strong>¡Ni de broma! 😏</strong></p>
+
+          <button
+            id="revealButton"
+            class="surprise-button"
+            type="button"
+          >
+            🎁 DESCUBRIR MI VERDADERO REGALO
+          </button>
         </div>
 
-    </div>
-
-</div>
+      </section>
 
 
-<script>
-    /* ==========================================
-       CONFIGURACIÓN
-       ========================================== */
+      <!-- =====================================
+           6. ÚLTIMA SORPRESA REVELADA
+           ===================================== -->
+
+      <section id="finalSurprise" class="hidden">
+
+        <div class="surprise-panel">
+          <div class="heart">🎉</div>
+
+          <h2>¡SORPRESA, HELEN!</h2>
+
+          <p>
+            ¡Has llegado hasta el final!
+          </p>
+
+          <p>
+            Después de tantas pistas y enigmas, ha llegado
+            el momento de dejar de investigar y disfrutar. ❤️
+          </p>
+
+          <p>
+            Porque los mejores regalos no siempre vienen
+            envueltos en papel...
+          </p>
+
+          <p>
+            ¡Y esta sorpresa está hecha especialmente para ti!
+          </p>
+        </div>
+
+        <!-- FOTO PERSONAL -->
+
+        <img
+          class="result-image"
+          src="regalo.jpg"
+          alt="Un recuerdo muy especial"
+        >
+
+        <!-- MENSAJE DE CUMPLEAÑOS -->
+
+        <div class="birthday-text">
+          <h2>¡Muchísimas felicidades! 🎂</h2>
+
+          <p>
+            Eres un encanto, Helen. Ojalá este nuevo año
+            te traiga muchísimos motivos para sonreír
+            y consigas todo aquello que te haga feliz.
+          </p>
+
+          <p>
+            ¡Que no te falten las aventuras, las risas
+            ni las sorpresas bonitas! ❤️
+          </p>
+
+          <p>
+            Y recuerda: nunca subestimes a una buena detective. 😜
+          </p>
+        </div>
+
+        <!-- CANCIÓN -->
+
+        <button
+          id="musicButton"
+          class="music-button"
+          type="button"
+        >
+          🎵 Reproducir nuestra canción
+        </button>
+
+        <p id="musicStatus" class="music-note" aria-live="polite">
+          Dale al botón para escuchar la canción. ❤️
+        </p>
+
+        <audio
+          id="music"
+          src="cancion.mp3"
+          preload="none"
+        ></audio>
+
+      </section>
+
+    </section>
+
+    <div class="footer">Hecho con ❤️ para ti</div>
+  </main>
+
+
+  <script>
+    // ==========================================
+    // CONFIGURACIÓN GENERAL
+    // ==========================================
 
     const SECRET_KEY = "F7K29M";
     const CORRECT_CODE = "LHNE";
 
     /*
-       false = mostrar la pantalla de disponibilidad.
-       true  = mostrar directamente el juego.
+      false = mostrar solamente la pantalla de espera.
+      true  = permitir acceder al juego.
 
-       Cuando quieras activar el juego, cambia false por true.
+      Cuando quieras activar el juego, cambia false por true.
     */
     const GAME_ENABLED = false;
 
 
-    /* ==========================================
-       COMPROBAR LA URL SECRETA
-       ========================================== */
+    // ==========================================
+    // ELEMENTOS DE LA PÁGINA
+    // ==========================================
 
-    const params = new URLSearchParams(window.location.search);
-    const key = params.get("k");
-
-    const main = document.getElementById("main");
-    const blocked = document.getElementById("blocked");
+    const restricted = document.getElementById("restricted");
     const comingSoon = document.getElementById("comingSoon");
     const game = document.getElementById("game");
 
-    if (key !== SECRET_KEY) {
-        main.style.display = "none";
-        blocked.style.display = "block";
+    const codeForm = document.getElementById("codeForm");
+    const codeInput = document.getElementById("codeInput");
+    const feedback = document.getElementById("feedback");
+
+    const wrongResult = document.getElementById("wrongResult");
+    const successResult = document.getElementById("successResult");
+    const finalSurprise = document.getElementById("finalSurprise");
+
+    const revealButton = document.getElementById("revealButton");
+
+    const music = document.getElementById("music");
+    const musicButton = document.getElementById("musicButton");
+    const musicStatus = document.getElementById("musicStatus");
+
+
+    // ==========================================
+    // CONTROL DE ACCESO MEDIANTE LA URL
+    // ==========================================
+
+    const params = new URLSearchParams(window.location.search);
+    const suppliedKey = params.get("k");
+
+    if (suppliedKey !== SECRET_KEY) {
+      restricted.classList.remove("hidden");
+    } else if (!GAME_ENABLED) {
+      comingSoon.classList.remove("hidden");
     } else {
-        if (GAME_ENABLED) {
-            comingSoon.style.display = "none";
-            game.style.display = "block";
-        } else {
-            comingSoon.style.display = "block";
-            game.style.display = "none";
-        }
+      game.classList.remove("hidden");
     }
 
 
-    /* ==========================================
-       ELEMENTOS DEL JUEGO
-       ========================================== */
+    // ==========================================
+    // COMPROBAR EL CÓDIGO
+    // ==========================================
 
-    const form = document.getElementById("codeForm");
-    const input = document.getElementById("code");
-    const message = document.getElementById("message");
-    const successResult = document.getElementById("successResult");
-    const errorResult = document.getElementById("errorResult");
-    const unlockButton = document.getElementById("unlockButton");
+    codeForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const enteredCode = codeInput.value.trim().toUpperCase();
+
+      wrongResult.classList.add("hidden");
+      successResult.classList.add("hidden");
+      finalSurprise.classList.add("hidden");
+
+      if (enteredCode === CORRECT_CODE) {
+
+        feedback.textContent = "🔓 ¡Código correcto!";
+        feedback.style.color = "#218653";
+
+        successResult.classList.remove("hidden");
+        codeForm.classList.add("hidden");
+
+      } else {
+
+        feedback.textContent =
+          "❌ ¡Uy! Ese código no es. ¡Inténtalo otra vez!";
+
+        feedback.style.color = "#c83e69";
+
+        wrongResult.classList.remove("hidden");
+      }
+    });
 
 
-    /* ==========================================
-       COMPROBAR EL CÓDIGO INTRODUCIDO
-       ========================================== */
+    // ==========================================
+    // REVELAR LA ÚLTIMA SORPRESA
+    // ==========================================
 
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
+    revealButton.addEventListener("click", function() {
+      finalSurprise.classList.remove("hidden");
+      revealButton.classList.add("hidden");
 
-        const enteredCode = input.value.trim().toUpperCase();
+      finalSurprise.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
 
-        if (enteredCode === CORRECT_CODE) {
 
-            message.textContent = "🔓 Acceso concedido.";
-            message.className = "message success";
+    // ==========================================
+    // REPRODUCTOR DE MÚSICA
+    // ==========================================
 
-            successResult.style.display = "block";
-            errorResult.style.display = "none";
+    musicButton.addEventListener("click", async function() {
 
-            input.disabled = true;
-            unlockButton.disabled = true;
+      if (music.paused) {
 
-        } else {
+        musicStatus.textContent = "Cargando la canción... ❤️";
 
-            message.textContent =
-                "❌ Código incorrecto. Inténtalo de nuevo.";
+        try {
+          await music.play();
 
-            message.className = "message error";
+          musicButton.textContent = "⏸ Pausar canción";
+          musicStatus.textContent = "Disfruta de nuestra canción. ❤️";
 
-            errorResult.style.display = "block";
-            successResult.style.display = "none";
+        } catch (error) {
 
-            input.select();
+          musicStatus.textContent =
+            "No se ha podido reproducir la canción. " +
+            "Comprueba que cancion.mp3 está subido correctamente.";
 
         }
-    });
-</script>
 
+      } else {
+
+        music.pause();
+
+        musicButton.textContent = "🎵 Continuar canción";
+        musicStatus.textContent = "Canción pausada.";
+
+      }
+    });
+
+
+    // Cambiar el botón cuando termina la canción.
+
+    music.addEventListener("ended", function() {
+      musicButton.textContent = "🎵 Reproducir de nuevo";
+      musicStatus.textContent = "¿La escuchamos otra vez? ❤️";
+    });
+
+
+    // Avisar si no se encuentra el archivo de audio.
+
+    music.addEventListener("error", function() {
+      musicStatus.textContent =
+        "No se encuentra cancion.mp3. " +
+        "Comprueba el nombre del archivo y vuelve a intentarlo.";
+    });
+
+  </script>
 </body>
 </html>
